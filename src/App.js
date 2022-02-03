@@ -10,11 +10,15 @@ function App() {
   //board = ["","","", "","","", "","",""]
   const chooseSquare = (square) => {
     setBoard(
+      //set the square to the player's symbol
       board.map((val, idx) => {
         if (idx === square && val === "") return player;
         return val;
       })
     );
+
+    //update player to be the other
+    player === "✖" ? setPlayer("〇") : setPlayer("✖");
   };
 
   return (
