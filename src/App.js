@@ -5,8 +5,17 @@ import Square from "./Components/Square";
 
 function App() {
   const [board, setBoard] = useState(new Array(9).fill(""));
+  const [player, setPlayer] = useState("✖");
 
-  const chooseSquare = () => {};
+  //board = ["","","", "","","", "","",""]
+  const chooseSquare = (square) => {
+    setBoard(
+      board.map((val, idx) => {
+        if (idx === square && val === "") return player;
+        return val;
+      })
+    );
+  };
 
   return (
     <div className="App">
@@ -16,19 +25,19 @@ function App() {
           <Square
             val={board[0]}
             chooseSquare={() => {
-              alert(0);
+              chooseSquare(0);
             }}
           />
           <Square
             val={board[1]}
             chooseSquare={() => {
-              alert(1);
+              chooseSquare(1);
             }}
           />
           <Square
             val={board[2]}
             chooseSquare={() => {
-              alert(2);
+              chooseSquare(2);
             }}
           />
         </div>
