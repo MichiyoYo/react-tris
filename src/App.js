@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
+import Square from "./Components/Square";
 
 function App() {
+  const [board, setBoard] = useState(new Array(9).fill(""));
+
+  const chooseSquare = () => {};
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Tic Tac Toe</h1>
+      <div className="board">
+        <div className="row">
+          <Square
+            val={board[0]}
+            chooseSquare={() => {
+              alert(0);
+            }}
+          />
+          <Square
+            val={board[1]}
+            chooseSquare={() => {
+              alert(1);
+            }}
+          />
+          <Square
+            val={board[2]}
+            chooseSquare={() => {
+              alert(2);
+            }}
+          />
+        </div>
+        <div className="row"></div>
+        <div className="row"></div>
+      </div>
     </div>
   );
 }
