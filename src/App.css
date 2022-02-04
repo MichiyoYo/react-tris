@@ -94,3 +94,7 @@ h2 {
   opacity: 1;
   box-shadow: 0 0 13px #6700ff;
 }
+
+.freezed {
+  pointer-events: none;
+}

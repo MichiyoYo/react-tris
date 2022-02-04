@@ -8,7 +8,7 @@ function App() {
   const [board, setBoard] = useState(new Array(9).fill(""));
   const [player, setPlayer] = useState("〇");
   const [result, setResult] = useState({ winner: "none", state: "none" });
-  const [announcement, setAnnouncement] = useState("");
+  const [announcement, setAnnouncement] = useState({ msg: "", freeze: false });
 
   const chooseSquare = (square) => {
     setBoard(
@@ -50,16 +50,18 @@ function App() {
     setBoard(new Array(9).fill(""));
     setPlayer("〇");
     setResult({ winner: "none", state: "none" });
-    setAnnouncement("");
+    setAnnouncement({ msg: "", freeze: false });
   };
 
   const endGame = () => {
-    Object.freeze(board);
-    setAnnouncement(
+    const message =
       result.state !== "Tie"
         ? `Player ${result.winner} ${result.state} 🔥`
-        : `No One Wins 😿`
-    );
+        : `No One Wins 😿`;
+    setAnnouncement({
+      msg: message,
+      freeze: true,
+    });
   };
 
   //calling checkWin every time board updates
@@ -79,8 +81,8 @@ function App() {
   return (
     <div className="App">
       <h1>Tic Tac Toe</h1>
-      <h2>{announcement}</h2>
-      <div className="board">
+      <h2>{announcement.msg}</h2>
+      <div className={`board ${announcement.freeze ? "freezed" : ""}`}>
         <div className="row">
           <Square
             val={board[0]}
