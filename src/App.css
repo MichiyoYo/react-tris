@@ -12,6 +12,7 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
 }
 body {
   padding: 0;
@@ -23,6 +24,10 @@ h1 {
   font-size: 60px;
   margin-top: 0;
   color: #fff;
+}
+h2 {
+  color: #fff;
+  margin-top: 0;
 }
 
 .board {

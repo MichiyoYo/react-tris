@@ -8,8 +8,8 @@ function App() {
   const [board, setBoard] = useState(new Array(9).fill(""));
   const [player, setPlayer] = useState("〇");
   const [result, setResult] = useState({ winner: "none", state: "none" });
+  const [announcement, setAnnouncement] = useState("");
 
-  //board = ["","","", "","","", "","",""]
   const chooseSquare = (square) => {
     setBoard(
       //set the square to the player's symbol
@@ -50,6 +50,16 @@ function App() {
     setBoard(new Array(9).fill(""));
     setPlayer("〇");
     setResult({ winner: "none", state: "none" });
+    setAnnouncement("");
+  };
+
+  const endGame = () => {
+    Object.freeze(board);
+    setAnnouncement(
+      result.state !== "Tie"
+        ? `Player ${result.winner} ${result.state} 🔥`
+        : `No One Wins 😿`
+    );
   };
 
   //calling checkWin every time board updates
@@ -62,13 +72,14 @@ function App() {
 
   useEffect(() => {
     if (result.state !== "none") {
-      alert(`Game Finished! Winning Player: ${result.winner}`);
+      endGame();
     }
   }, [result]);
 
   return (
     <div className="App">
       <h1>Tic Tac Toe</h1>
+      <h2>{announcement}</h2>
       <div className="board">
         <div className="row">
           <Square
