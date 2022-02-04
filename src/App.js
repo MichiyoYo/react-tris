@@ -1,11 +1,13 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Square from "./Components/Square";
+import { Patterns } from "./Components/Patterns";
 
 function App() {
   const [board, setBoard] = useState(new Array(9).fill(""));
-  const [player, setPlayer] = useState("✖");
+  const [player, setPlayer] = useState("〇");
+  const [result, setResult] = useState({ winner: "none", state: "none" });
 
   //board = ["","","", "","","", "","",""]
   const chooseSquare = (square) => {
@@ -16,10 +18,38 @@ function App() {
         return val;
       })
     );
+  };
 
+  const checkWin = () => {
+    Patterns.forEach((pattern) => {
+      const firstPlayer = board[pattern[0]];
+      if (firstPlayer === "") return;
+      let foundWinningPattern = true;
+      pattern.forEach((index) => {
+        if (board[index] !== firstPlayer) foundWinningPattern = false;
+      });
+
+      if (foundWinningPattern) {
+        setResult({
+          winner: player,
+          state: "won",
+        });
+      }
+    });
+  };
+
+  //calling checkWin every time board updates
+  useEffect(() => {
+    checkWin();
     //update player to be the other
     player === "✖" ? setPlayer("〇") : setPlayer("✖");
-  };
+  }, [board]);
+
+  useEffect(() => {
+    if (result.state !== "none") {
+      alert(`Game Finished! Winning Player: ${result.winner}`);
+    }
+  }, [result]);
 
   return (
     <div className="App">
