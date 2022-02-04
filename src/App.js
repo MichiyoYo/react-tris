@@ -32,15 +32,30 @@ function App() {
       if (foundWinningPattern) {
         setResult({
           winner: player,
-          state: "won",
+          state: "Won",
         });
       }
     });
   };
 
+  const checkIfTie = () => {
+    let filled = true;
+    board.forEach((square) => {
+      if (square === "") filled = false;
+    });
+    if (filled) setResult({ winner: "No One", state: "Tie" });
+  };
+
+  const restart = () => {
+    setBoard(new Array(9).fill(""));
+    setPlayer("〇");
+    setResult({ winner: "none", state: "none" });
+  };
+
   //calling checkWin every time board updates
   useEffect(() => {
     checkWin();
+    checkIfTie();
     //update player to be the other
     player === "✖" ? setPlayer("〇") : setPlayer("✖");
   }, [board]);
@@ -116,6 +131,9 @@ function App() {
           />
         </div>
       </div>
+      <button className="btn" onClick={() => restart()}>
+        Restart
+      </button>
     </div>
   );
 }
